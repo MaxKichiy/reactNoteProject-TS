@@ -7,6 +7,7 @@
   text-align: center;
   background-color: $main-color;
   border-bottom: 1px solid $secondary-color;
+  pointer-events: none;
   &__title {
     // padding-top: 1rem;
     color: #ffffff;
@@ -17,5 +18,20 @@
     color: #fff;
     line-height: 1rem;
     // padding-bottom: 1rem;
+  }
+}
+
+@media (min-width: $tablet-width) {
+  .header {
+    height: 100px;
+    padding-top: 20px;
+    border-bottom-width: 2px;
+    &__title {
+      font-size: 3.1rem;
+    }
+    &__text {
+      margin-top: 10px;
+      font-size: 1.2rem;
+    }
   }
 }
