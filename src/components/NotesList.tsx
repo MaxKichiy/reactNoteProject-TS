@@ -14,6 +14,7 @@ const NotesList: React.FC<NotesListrops> = ({
   onCheckHandler,
   onEditNote,
 }) => {
+  // показуємо завжди останню замітку, навіть якщо виходить за межі вьюпорта
   const setRef = useCallback((node) => {
     if (node) {
       node.scrollIntoView({
@@ -21,27 +22,28 @@ const NotesList: React.FC<NotesListrops> = ({
       });
     }
   }, []);
-  const onEditHandler = (id: number, title: string | any) => {
-    let newData = window.prompt('Введіть нову назву', title);
-    if (newData === '') {
-      newData = title;
-    }
-    onEditNote(id, newData);
-  };
+  // const onEditHandler = (id: number, title: string | any) => {
+  //   let newData = window.prompt('Введіть нову назву', title);
+  //   if (newData === '') {
+  //     newData = title;
+  //   }
+  //   onEditNote(id, newData);
+  // };
 
-  let noteActiveStyles = ['notes__item', 'notes__item--active'];
+  const noteActiveStyles = ['notes__item', 'notes__item--active'];
   const lastItem = notes.length - 1;
-  let notesList = notes.map((note) => (
+
+  const notesList = notes.map((note, index) => (
     <li
-      ref={lastItem ? setRef : null}
+      ref={lastItem === index ? setRef : null}
       className={
         note.isActive ? noteActiveStyles.join(' ') : noteActiveStyles[0]
       }
       key={note.id}
-      onChange={(e) => onCheckHandler(note.id)}
+      onChange={() => onCheckHandler(note.id)}
     >
       <button
-        onClick={() => onEditHandler(note.id, note.title)}
+        onClick={() => onEditNote(note.id, note.title)}
         className='notes__item-button button--edit button '
       >
         <svg

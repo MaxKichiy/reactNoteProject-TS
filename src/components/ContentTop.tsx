@@ -12,25 +12,17 @@ const ContentTop: React.FC<ContentTopProps> = ({
   onDeleteNote,
   onEditNote,
 }) => {
-  const final = notes.filter((note) => note.isActive !== true);
+  const sortedNotActive = notes.filter((note) => note.isActive !== true);
+  const selectedAmountDiff = notes.length - sortedNotActive.length;
 
-  const selectedAmount = notes.length - final.length;
-
-  const onEditHandler = (id: number, title: string | any) => {
-    let newData = window.prompt('Введіть нову назву', title);
-    if (newData === '') {
-      newData = title;
-    }
-    onEditNote(id, newData);
-  };
-
+  //вибираємо єдину замітку для редагування в моб.режимі
   let activeItem = notes.filter((el) => el.isActive === true)[0];
 
   return (
     <div className='content__top'>
-      {selectedAmount === 1 && (
+      {selectedAmountDiff === 1 && (
         <button
-          onClick={() => onEditHandler(activeItem.id, activeItem.title)}
+          onClick={() => onEditNote(activeItem.id, activeItem.title)}
           className='content__top-button button--edit button '
         >
           Редагувати
@@ -38,12 +30,12 @@ const ContentTop: React.FC<ContentTopProps> = ({
       )}
 
       <h2 className='content__title '>Всі Нотатки</h2>
-      {selectedAmount !== 0 && (
+      {selectedAmountDiff !== 0 && (
         <button
-          onClick={() => onDeleteNote(final)}
+          onClick={() => onDeleteNote(sortedNotActive)}
           className='content__top-button button--delete button'
         >
-          {`Видалити (${selectedAmount})`}
+          {`Видалити (${selectedAmountDiff})`}
         </button>
       )}
     </div>

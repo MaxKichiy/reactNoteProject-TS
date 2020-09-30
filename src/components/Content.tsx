@@ -19,12 +19,8 @@ const Content: React.FC = () => {
     localStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
 
-  const onEditHandler = () => {
-    setShowInput(true);
-  };
-
-  const onEditClose = () => {
-    setShowInput(false);
+  const onToggleInput = () => {
+    setShowInput((prev) => !showInput);
   };
 
   const onCheckHandler = (id: number) => {
@@ -37,6 +33,24 @@ const Content: React.FC = () => {
     setNotes(newNotesList);
   };
 
+  const onEditHandler = (id: number, title: string | any) => {
+    let newData = window.prompt('Введіть нову назву', title);
+    if (newData === '') {
+      newData = title;
+    }
+    if (newData === null) {
+      newData = title;
+    }
+    const editedList = notes.map((element) => {
+      if (element.id === id) {
+        //@ts-ignore
+        element.title = newData;
+      }
+      return element;
+    });
+    setNotes(editedList);
+  };
+
   const onAddNote = (title: string) => {
     const newNote = {
       title: title,
@@ -47,23 +61,12 @@ const Content: React.FC = () => {
   };
 
   const onDeleteNote = (id: number | INoteItemProps[]) => {
-    let filteredNotes: INoteItemProps[];
     if (typeof id === 'number') {
-      filteredNotes = notes.filter((note) => note.id !== id);
+      let filteredNotes = notes.filter((note) => note.id !== id);
       setNotes((prev) => filteredNotes);
       return;
     }
-    setNotes((prev) => id); // якщо повертається списко то просто заміняємо
-  };
-
-  const onEditNote = (id: number, title: string | any) => {
-    const editedList = notes.map((element) => {
-      if (element.id === id) {
-        element.title = title;
-      }
-      return element;
-    });
-    setNotes(editedList);
+    setNotes((prev) => id); // якщо повертається список то просто заміняємо
   };
 
   return (
@@ -71,20 +74,19 @@ const Content: React.FC = () => {
       <ContentTop
         notes={notes}
         onDeleteNote={onDeleteNote}
-        onEditNote={onEditNote}
+        onEditNote={onEditHandler}
       />
       <NotesList
         notes={notes}
         onDeleteNote={onDeleteNote}
         onCheckHandler={onCheckHandler}
-        onEditNote={onEditNote}
+        onEditNote={onEditHandler}
       />
 
       <NewNoteForm
         showInput={showInput}
-        setEdit={onEditHandler}
-        setEditClose={onEditClose}
         AddNote={onAddNote}
+        onToggleInput={onToggleInput}
       />
     </section>
   );

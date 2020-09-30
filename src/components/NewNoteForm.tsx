@@ -2,39 +2,37 @@ import React, { useRef } from 'react';
 
 type NewNoteFormProps = {
   showInput: boolean;
-  setEdit: () => void;
-  setEditClose: () => void;
   AddNote: (title: string) => void;
+  onToggleInput: () => void;
 };
 
 const NewNoteForm: React.FC<NewNoteFormProps> = ({
   showInput,
-  setEdit,
-  setEditClose,
   AddNote,
+  onToggleInput,
 }) => {
   const ref = useRef<HTMLInputElement>(null);
-  const addButton = useRef<HTMLButtonElement>(null);
 
   const onAddNoteHandler = () => {
     if (ref.current!.value) {
       AddNote(ref.current!.value);
       ref.current!.value = '';
 
-      // setEditClose(); зняти коментар якщо потрібно закривати поле після додавання замітки
+      // setEditClose();
     }
   };
 
-  const onEditStart = () => {
-    setEdit();
+  const onToggleShowInput = () => {
+    onToggleInput();
   };
+
   const onKeyBoardHandle = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (ref.current?.value && event.key === 'Enter') {
       onAddNoteHandler();
     }
     if (event.key === 'Escape') {
       event.preventDefault();
-      setEditClose();
+      onToggleShowInput();
     }
   };
 
@@ -42,8 +40,7 @@ const NewNoteForm: React.FC<NewNoteFormProps> = ({
     <div className='content__form input-form'>
       {!showInput ? (
         <button
-          ref={addButton}
-          onClick={onEditStart}
+          onClick={onToggleShowInput}
           className='content__add-button button'
         >
           Додати нотатку
@@ -58,7 +55,7 @@ const NewNoteForm: React.FC<NewNoteFormProps> = ({
               type='text'
             />
             <button
-              onClick={setEditClose}
+              onClick={onToggleShowInput}
               className='input-form__button input-form__button--mobile input-form--cancel button'
             >
               <svg
@@ -76,7 +73,7 @@ const NewNoteForm: React.FC<NewNoteFormProps> = ({
             </button>
           </div>
           <button
-            onClick={setEditClose}
+            onClick={onToggleShowInput}
             className='input-form__button input-form__button--desktop  input-form--cancel button'
           >
             Відміна
