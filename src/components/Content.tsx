@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import ContentTop from './ContentTop';
-import NewNoteForm from './NewNoteForm';
-import NotesList from './NotesList';
+import { ContentTopMemo } from './ContentTop';
+import { NewNoteFormMemo } from './NewNoteForm';
+import { NotesListMemo } from './NotesList';
 import { INoteItemProps } from '../interfaces';
 
 const Content: React.FC = () => {
@@ -77,19 +77,19 @@ const Content: React.FC = () => {
 
   return (
     <section className='main__content content'>
-      <ContentTop
+      <ContentTopMemo
         notes={notes}
         onDeleteNote={onDeleteNote}
         onEditNote={onEditHandler}
       />
-      <NotesList
+      <NotesListMemo
         notes={notes}
         onDeleteNote={onDeleteNote}
         onCheckHandler={onCheckHandler}
         onEditNote={onEditHandler}
       />
 
-      <NewNoteForm
+      <NewNoteFormMemo
         showInput={showInput}
         AddNote={onAddNote}
         onToggleInput={onToggleInput}
@@ -98,4 +98,4 @@ const Content: React.FC = () => {
   );
 };
 
-export default Content;
+export const ContentMemo = React.memo(Content);

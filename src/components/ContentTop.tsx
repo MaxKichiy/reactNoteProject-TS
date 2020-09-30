@@ -42,4 +42,4 @@ const ContentTop: React.FC<ContentTopProps> = ({
   );
 };
 
-export default ContentTop;
+export const ContentTopMemo = React.memo(ContentTop);

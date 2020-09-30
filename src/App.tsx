@@ -1,5 +1,5 @@
 import React from 'react';
-import Content from './components/Content';
+import { ContentMemo } from './components/Content';
 import Header from './components/Header';
 
 const App: React.FC = () => {
@@ -7,7 +7,7 @@ const App: React.FC = () => {
     <main className='main'>
       <div className='main__wrapper'>
         <Header />
-        <Content />
+        <ContentMemo />
       </div>
     </main>
   );

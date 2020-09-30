@@ -133,4 +133,4 @@ const NewNoteForm: React.FC<NewNoteFormProps> = ({
   );
 };
 
-export default NewNoteForm;
+export const NewNoteFormMemo = React.memo(NewNoteForm);

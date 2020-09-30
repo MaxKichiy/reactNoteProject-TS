@@ -88,4 +88,4 @@ const NotesList: React.FC<NotesListrops> = ({
   return <ul className='content__list notes'>{notesList}</ul>;
 };
 
-export default NotesList;
+export const NotesListMemo = React.memo(NotesList);
