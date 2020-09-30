@@ -29,7 +29,7 @@ const ContentTop: React.FC<ContentTopProps> = ({
         </button>
       )}
 
-      <h2 className='content__title '>Всі Нотатки</h2>
+      <h2 className='content__title '>Всі замітки</h2>
       {selectedAmountDiff !== 0 && (
         <button
           onClick={() => onDeleteNote(sortedNotActive)}

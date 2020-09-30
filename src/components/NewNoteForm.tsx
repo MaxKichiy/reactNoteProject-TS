@@ -43,7 +43,7 @@ const NewNoteForm: React.FC<NewNoteFormProps> = ({
           onClick={onToggleShowInput}
           className='content__add-button button'
         >
-          Додати нотатку
+          Додати замітку
         </button>
       ) : (
         <>
