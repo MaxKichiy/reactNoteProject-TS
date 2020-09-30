@@ -40,5 +40,6 @@ button {
   cursor: pointer;
   &:hover {
     background-color: darken($secondary-color, 10%);
+    transition: background-color 0.25s ease-in-out;
   }
 }
