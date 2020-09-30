@@ -63,10 +63,16 @@ const Content: React.FC = () => {
   const onDeleteNote = (id: number | INoteItemProps[]) => {
     if (typeof id === 'number') {
       let filteredNotes = notes.filter((note) => note.id !== id);
-      setNotes((prev) => filteredNotes);
+
+      if (window.confirm('Ви точно бажаєте видалити цю замітку?')) {
+        setNotes((prev) => filteredNotes);
+      }
       return;
     }
-    setNotes((prev) => id); // якщо повертається список то просто заміняємо
+    if (window.confirm('Ви точно бажаєте видалити ці замітки?')) {
+      setNotes((prev) => id);
+    }
+    // якщо повертається список то просто заміняємо
   };
 
   return (
